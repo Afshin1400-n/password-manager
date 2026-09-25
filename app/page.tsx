@@ -84,7 +84,7 @@ export default function HomePage() {
       return 0;
     });
 
-  const favoritesCount = passwords.filter((p) => p.isFavorite).length;
+  
 
   return (
     <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"} p-4 md:p-8`}>
@@ -167,7 +167,7 @@ export default function HomePage() {
         {/* آمار */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
           <DetailShow title="همه" value="all" passwords={passwords} />
-          <DetailShow title="⭐ علاقه‌مندی" value="favorite" passwords={passwords} />
+          <DetailShow title=" علاقه‌مندی" value="favorite" passwords={passwords} />
           <DetailShow title="ایمیل" value="email" passwords={passwords} />
           <DetailShow title="بانکی" value="banking" passwords={passwords} />
           <DetailShow title="شبکه اجتماعی" value="social" passwords={passwords} />
