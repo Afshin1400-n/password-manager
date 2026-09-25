@@ -24,7 +24,7 @@ export const usePasswordStore = create<PasswordStore>()(
               ...data,
               id: Date.now().toString(),
               createdAt: new Date().toISOString(),
-              isFavorite: false,   // ⬅️ پیشفرض
+              isFavorite: false,  
             },
           ],
         })),

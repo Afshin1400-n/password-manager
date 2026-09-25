@@ -39,11 +39,11 @@ export default function HomePage() {
 
   const handleAllDelete = () => {
     if (passwords.length === 0) {
-      alert("لیست خالیه!");
+      alert("The list is empty!");
       return;
     }
 
-    const confirmed = confirm("مطمئنی میخوای همه پسوردها رو حذف کنی؟");
+    const confirmed = confirm("Are you sure you want to delete all passwords?");
     if (confirmed) {
       deleteAllPassword();
     }
@@ -60,13 +60,13 @@ export default function HomePage() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert("✅ کپی شد!");
+      alert("✅ Copied!");
     } catch (error) {
-      alert("❌ کپی نشد، دوباره تلاش کن");
+      alert("❌ Failed to copy, please try again");
     }
   };
 
-  // ✅ فیلتر + مرتب‌سازی (علاقه‌مندی‌ها بالا)
+  // ✅ Filter + sort (favorites on top)
   const filtered = passwords
     .filter((p) => {
       if (filter === "all") return true;
@@ -84,20 +84,18 @@ export default function HomePage() {
       return 0;
     });
 
-  
-
   return (
     <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"} p-4 md:p-8`}>
       <div className="max-w-4xl mx-auto flex flex-col gap-6">
 
-        {/* هدر */}
+        {/* Header */}
         <header className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-5 border-b ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
           <div>
             <h1 className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-              🔐 مدیریت رمزها
+              🔐 Password Manager
             </h1>
             <p className={`mt-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-              رمزهای خودت رو امن نگه دار
+              Keep your passwords safe
             </p>
           </div>
 
@@ -116,19 +114,19 @@ export default function HomePage() {
               onClick={handleAddPassword}
               className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-sm"
             >
-              + رمز جدید
+              + New Password
             </button>
           </div>
         </header>
 
-        {/* نوار جستجو */}
+        {/* Search bar */}
         <div className={`rounded-2xl p-4 ${theme === "dark" ? "bg-gray-800" : "bg-white shadow-sm"}`}>
           <div className="relative">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="جستجو بر اساس عنوان و رمز ..."
+              placeholder="Search by title or password..."
               className={`w-full px-4 py-3 pr-11 rounded-xl border-2 outline-none transition
                 ${theme === "dark"
                   ? "bg-gray-900 border-gray-700 text-white placeholder-gray-500 focus:border-blue-500"
@@ -140,14 +138,14 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-4">
-            <DetailFilter setFilter={setFilter} title="همه" value="all" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="⭐ علاقه‌مندی‌ها" value="favorite" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="📧 ایمیل" value="email" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="🏦 بانکی" value="banking" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="📱 شبکه اجتماعی" value="social" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="💼 کار" value="work" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="🛒 خرید" value="shopping" currentFilter={filter} />
-            <DetailFilter setFilter={setFilter} title="📦 سایر" value="other" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="All" value="all" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="⭐ Favorites" value="favorite" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="📧 Email" value="email" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="🏦 Banking" value="banking" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="📱 Social" value="social" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="💼 Work" value="work" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="🛒 Shopping" value="shopping" currentFilter={filter} />
+            <DetailFilter setFilter={setFilter} title="📦 Other" value="other" currentFilter={filter} />
 
             {passwords.length > 0 && (
               <button
@@ -158,25 +156,25 @@ export default function HomePage() {
                     : "bg-red-100 text-red-600 hover:bg-red-200"
                 }`}
               >
-                🗑️ حذف همه
+                🗑️ Delete All
               </button>
             )}
           </div>
         </div>
 
-        {/* آمار */}
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
-          <DetailShow title="همه" value="all" passwords={passwords} />
-          <DetailShow title=" علاقه‌مندی" value="favorite" passwords={passwords} />
-          <DetailShow title="ایمیل" value="email" passwords={passwords} />
-          <DetailShow title="بانکی" value="banking" passwords={passwords} />
-          <DetailShow title="شبکه اجتماعی" value="social" passwords={passwords} />
-          <DetailShow title="کار" value="work" passwords={passwords} />
-          <DetailShow title="خرید" value="shopping" passwords={passwords} />
-          <DetailShow title="سایر" value="other" passwords={passwords} />
+          <DetailShow title="All" value="all" passwords={passwords} />
+          <DetailShow title="Favorites" value="favorite" passwords={passwords} />
+          <DetailShow title="Email" value="email" passwords={passwords} />
+          <DetailShow title="Banking" value="banking" passwords={passwords} />
+          <DetailShow title="Social" value="social" passwords={passwords} />
+          <DetailShow title="Work" value="work" passwords={passwords} />
+          <DetailShow title="Shopping" value="shopping" passwords={passwords} />
+          <DetailShow title="Other" value="other" passwords={passwords} />
         </div>
 
-        {/* لیست رمزها */}
+        {/* Password list */}
         <div className="flex flex-col gap-3">
           {filtered.length === 0 ? (
             <div className={`text-center py-16 rounded-2xl border-2 border-dashed
@@ -184,17 +182,17 @@ export default function HomePage() {
               <p className="text-5xl mb-3">🔐</p>
               <p className={`text-lg font-bold ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                 {passwords.length === 0
-                  ? "هنوز رمزی ذخیره نکردی"
+                  ? "No passwords saved yet"
                   : filter === "favorite"
-                    ? "هنوز چیزی رو علاقه‌مند نکردی"
-                    : "چیزی پیدا نشد"}
+                    ? "No favorites yet"
+                    : "Nothing found"}
               </p>
               <p className={`text-sm mt-1 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
                 {passwords.length === 0
-                  ? "روی «+ رمز جدید» بزن"
+                  ? "Click on «+ New Password»"
                   : filter === "favorite"
-                    ? "روی ستاره ☆ کنار هر رمز بزن"
-                    : "جستجو یا فیلتر رو تغییر بده"}
+                    ? "Click the ☆ star next to any password"
+                    : "Try changing the search or filter"}
               </p>
             </div>
           ) : (
@@ -209,7 +207,7 @@ export default function HomePage() {
               >
                 <div className="flex items-center justify-between gap-4">
 
-                  {/* آیکون + اطلاعات */}
+                  {/* Icon + info */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 shadow-sm
                       ${item.isFavorite
@@ -235,9 +233,9 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* دکمه‌های عملیات */}
+                  {/* Action buttons */}
                   <div className="flex items-center gap-1 flex-shrink-0">
-                    {/* ⭐ دکمه علاقه‌مندی */}
+                    {/* ⭐ Favorite button */}
                     <button
                       onClick={() => toggleFavorite(item.id)}
                       className={`p-2.5 rounded-lg transition text-lg ${
@@ -247,7 +245,7 @@ export default function HomePage() {
                             ? "text-gray-400 hover:bg-gray-700 hover:text-yellow-400"
                             : "text-gray-500 hover:bg-yellow-50 hover:text-yellow-500"
                       }`}
-                      title={item.isFavorite ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
+                      title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}
                     >
                       {item.isFavorite ? "⭐" : "☆"}
                     </button>
@@ -258,7 +256,7 @@ export default function HomePage() {
                         ${theme === "dark"
                           ? "text-gray-400 hover:bg-gray-700 hover:text-blue-400"
                           : "text-gray-500 hover:bg-blue-50 hover:text-blue-600"}`}
-                      title="ویرایش"
+                      title="Edit"
                     >
                       ✏️
                     </button>
@@ -268,7 +266,7 @@ export default function HomePage() {
                         ${theme === "dark"
                           ? "text-gray-400 hover:bg-gray-700 hover:text-blue-400"
                           : "text-gray-500 hover:bg-blue-50 hover:text-blue-600"}`}
-                      title="کپی"
+                      title="Copy"
                     >
                       📋
                     </button>
@@ -278,14 +276,14 @@ export default function HomePage() {
                         ${theme === "dark"
                           ? "text-gray-400 hover:bg-red-900/30 hover:text-red-400"
                           : "text-gray-500 hover:bg-red-50 hover:text-red-500"}`}
-                      title="حذف"
+                      title="Delete"
                     >
                       🗑️
                     </button>
                   </div>
                 </div>
 
-                {/* دسته‌بندی */}
+                {/* Category */}
                 <div className="mt-3">
                   <span className={`inline-block text-xs px-2.5 py-1 rounded-full font-medium
                     ${theme === "dark"

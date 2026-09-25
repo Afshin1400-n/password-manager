@@ -10,8 +10,7 @@ type PasswordModalProps = {
   editingPassword?: Password | null;
 };
 
-export default function PasswordModal({isOpen,onClose,editingPassword,}: PasswordModalProps) {
-
+export default function PasswordModal({ isOpen, onClose, editingPassword }: PasswordModalProps) {
   const addPassword = usePasswordStore((state) => state.addPassword);
   const updatePassword = usePasswordStore((state) => state.updatePassword);
 
@@ -20,7 +19,7 @@ export default function PasswordModal({isOpen,onClose,editingPassword,}: Passwor
   const [category, setCategory] = useState<string>("email");
   const [showPassword, setShowPassword] = useState(false);
 
-  // پر کردن فرم هنگام ویرایش
+  // Fill form when editing
   useEffect(() => {
     if (editingPassword) {
       setTitle(editingPassword.title);
@@ -41,31 +40,31 @@ export default function PasswordModal({isOpen,onClose,editingPassword,}: Passwor
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // اعتبارسنجی
+    // Validation
     if (!title.trim() || !password.trim()) {
-      alert("همه فیلدهای ستاره‌دار رو پر کن");
+      alert("Please fill in all required fields");
       return;
     }
 
     if (isEditMode && editingPassword) {
-      // ✅ حالت ویرایش
+      // ✅ Edit mode
       updatePassword(editingPassword.id, {
         title: title.trim(),
         password: password.trim(),
         category,
       });
-      alert("✅تغییرات انجام شد ");
+      alert("✅ Changes saved");
     } else {
-      // ✅ حالت افزودن
+      // ✅ Add mode
       addPassword({
         title: title.trim(),
         password: password.trim(),
         category,
       });
-      alert("✅ آیتم جدید اضافه شد");
+      alert("✅ New item added");
     }
 
-    // ریست کردن فرم
+    // Reset form
     setTitle("");
     setPassword("");
     setCategory("email");
@@ -80,7 +79,7 @@ export default function PasswordModal({isOpen,onClose,editingPassword,}: Passwor
 
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">
-            {isEditMode ? "✏️ ویرایش رمز" : "🔐 رمز جدید"}
+            {isEditMode ? "✏️ Edit Password" : "🔐 New Password"}
           </h2>
           <button
             onClick={onClose}
@@ -92,24 +91,24 @@ export default function PasswordModal({isOpen,onClose,editingPassword,}: Passwor
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* عنوان */}
+          {/* Title */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              عنوان *
+              Title *
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="مثلاً: جیمیل"
+              placeholder="e.g., Gmail"
               className="w-full px-4 py-3 border-2 border-gray-200 text-gray-800 rounded-lg focus:outline-none focus:border-blue-500 transition"
             />
           </div>
 
-          {/* رمز عبور */}
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              رمز عبور *
+              Password *
             </label>
             <div className="relative">
               <input
@@ -129,39 +128,39 @@ export default function PasswordModal({isOpen,onClose,editingPassword,}: Passwor
             </div>
           </div>
 
-          {/* دسته‌بندی */}
+          {/* Category */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              دسته‌بندی
+              Category
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as Category)}
               className="w-full px-4 py-3 border-2 border-gray-200 text-gray-800 rounded-lg focus:outline-none focus:border-blue-500 transition"
             >
-              <option value="email">📧 ایمیل</option>
-              <option value="banking">🏦 بانکی</option>
-              <option value="social">📱 شبکه اجتماعی</option>
-              <option value="work">💼 کار</option>
-              <option value="shopping">🛒 خرید</option>
-              <option value="other">📦 سایر</option>
+              <option value="email">📧 Email</option>
+              <option value="banking">🏦 Banking</option>
+              <option value="social">📱 Social</option>
+              <option value="work">💼 Work</option>
+              <option value="shopping">🛒 Shopping</option>
+              <option value="other">📦 Other</option>
             </select>
           </div>
 
-          {/* دکمه‌ها */}
+          {/* Buttons */}
           <div className="flex gap-3 pt-4">
             <button
               type="submit"
               className="flex-1 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition"
             >
-              {isEditMode ? "ذخیره تغییرات" : "ذخیره"}
+              {isEditMode ? "Save Changes" : "Save"}
             </button>
             <button
               type="button"
               onClick={onClose}
               className="px-6 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition"
             >
-              انصراف
+              Cancel
             </button>
           </div>
 
